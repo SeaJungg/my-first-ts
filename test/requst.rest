@@ -1,0 +1,29 @@
+# Create a new transaction
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+  "id": "2023-05-18-transaction-12",
+  "name": "sea",
+  "amount": 100
+}
+###
+
+# Get a transaction by ID
+GET http://localhost:3000/transactions/2023-05-18-transaction-12
+
+###
+
+# Update a transaction
+PUT http://localhost:3000/transactions/2023-05-18-transaction-12
+Content-Type: application/json
+
+{
+  "name": "new name",
+  "amount": 20000000
+}
+
+###
+
+# Delete a transaction
+DELETE http://localhost:3000/transactions/2023-05-18-transaction-11

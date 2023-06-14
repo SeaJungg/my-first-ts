@@ -1,0 +1,33 @@
+import { expect } from 'chai';
+import request from 'supertest';
+import { app } from '../src/app';
+
+describe('Endpoints Tests', () => {
+  let createdTransactionId: string;
+
+  before(async () => {
+    // Create a transaction for testing other endpoints
+    const createTransactionResponse = await request(app)
+      .post('/transactions')
+      .send({
+        name: 'sea',
+        amount: 100,
+      });
+
+    expect(createTransactionResponse.status).to.equal(201);
+    expect(createTransactionResponse.body).to.have.property('id');
+
+    createdTransactionId = createTransactionResponse.body.id;
+  });
+
+  it('should retrieve a transaction by ID', async () => {
+    const response = await request(app).get(`/transactions/${createdTransactionId}`);
+
+    expect(response.status).to.equal(200);
+    expect(response.body).to.deep.equal({
+      id: createdTransactionId,
+      name: 'sea',
+      amount: 100,
+    });
+  });
+});
